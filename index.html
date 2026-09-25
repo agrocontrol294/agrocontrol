@@ -1,300 +1,767 @@
-<section id="admin" class="card hidden">
- <section id="admin" class="card hidden">
-  <section id="admin" class="card hidden">
-<h2>Panel de Administración</h2>
-<p>Acá vas a poder gestionar clientes y sumar hectáreas.</p>
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agrocontrol</title>
 
-<h3>Agregar nuevo cliente</h3>
-
-<div class="formgrid">
-<div>
-<label>Nombre del cliente</label>
-<input id="nuevoNombre" type="text" placeholder="Ej.: Campo Los Álamos">
-</div>
-
-<div>
-<label>Código</label>
-<input id="nuevoCodigo" type="text" placeholder="Ej.: AC-004">
-</div>
-
-<div>
-<label>Hectáreas iniciales</label>
-<input id="nuevasHa" type="number" min="0" step="0.1" placeholder="Ej.: 350">
-</div>
-</div>
-
-<button class="primary" onclick="agregarCliente()" style="margin-top:12px">
-➕ Cargar cliente
-</button>
-
-<p id="nuevoClienteMsg"></p>
-
-<hr style="margin:25px 0;border:0;border-top:1px solid #e4eaec">
-
-<h3>Sumar hectáreas a un cliente</h3>
-
-<div class="formgrid">
-<div>
-<label>Cliente</label>
-<select id="sel"></select>
-</div>
-
-<div>
-<label>Hectáreas a sumar</label>
-<input id="sumar" type="number" min="0" step="0.1" placeholder="Ej.: 35">
-</div>
-
-<button class="primary" onclick="sumarHa()">Cargar</button>
-</div>
-
-<p id="adminMsg"></p>
-
-<h3>Clientes</h3>
-
-<table>
-<thead>
-<tr>
-<th>Cliente</th>
-<th>Código</th>
-<th>Ha</th>
-<th>Progreso</th>
-<th>Estado</th>
-</tr>
-</thead>
-
-<tbody id="tabla"></tbody>
-</table>
-
-<div class="note">
-Los clientes quedan guardados en este navegador. Después podemos conectar una base de datos para que la información sea real y accesible desde cualquier dispositivo.
-</div>
-
-   <script>
-    <script>
-
-let clientes = JSON.parse(localStorage.getItem("agrocontrol_clientes")) || [
- {nombre:"Juan Pérez",codigo:"JP-001",ha:420},
- {nombre:"Cliente 2",codigo:"AC-002",ha:275},
- {nombre:"Cliente 3",codigo:"AC-003",ha:510}
-];
-
-function guardarClientes(){
- localStorage.setItem(
-   "agrocontrol_clientes",
-   JSON.stringify(clientes)
- );
+<style>
+* {
+  box-sizing: border-box;
 }
 
-function estado(c){
- return c.ha>=500 ? "10% disponible" : "En progreso";
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f7f2;
+  color: #263326;
 }
 
-function render(){
+header {
+  background: #ffffff;
+  padding: 18px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
 
- const t=document.getElementById('tabla');
- const s=document.getElementById('sel');
+.logo {
+  height: 65px;
+  max-width: 240px;
+  object-fit: contain;
+}
 
- t.innerHTML='';
- s.innerHTML='';
+header h1 {
+  margin: 0;
+  color: #2e6b3d;
+  font-size: 25px;
+}
 
- clientes.forEach((c,i)=>{
+.container {
+  max-width: 1100px;
+  margin: 35px auto;
+  padding: 20px;
+}
 
-  s.innerHTML+=`
-  <option value="${i}">
-  ${c.nombre} — ${c.codigo}
-  </option>`;
+.menu {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
 
-  let pct=Math.min(100,c.ha/5);
+.menu button {
+  border: none;
+  background: #2e6b3d;
+  color: white;
+  padding: 16px 30px;
+  border-radius: 10px;
+  font-size: 17px;
+  cursor: pointer;
+}
 
-  t.innerHTML+=`
-  <tr>
-    <td>${c.nombre}</td>
-    <td>${c.codigo}</td>
-    <td>${c.ha.toFixed(1)} ha</td>
-    <td>${pct.toFixed(0)}%</td>
-    <td class="${c.ha>=500?'good':'warn'}">
-      ${estado(c)}
-    </td>
-  </tr>`;
- });
+.menu button:hover {
+  background: #245631;
+}
+
+.panel {
+  display: none;
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+}
+
+.panel.active {
+  display: block;
+}
+
+h2 {
+  color: #2e6b3d;
+  margin-top: 0;
+}
+
+h3 {
+  color: #3d6546;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin: 7px 0 15px;
+  border: 1px solid #ccd5cc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+button.action {
+  background: #2e6b3d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button.action:hover {
+  background: #245631;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 30px 0;
+}
+
+.card {
+  background: #f7faf6;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.progress {
+  height: 18px;
+  background: #dfe7df;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #4c9a5d;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 12px 8px;
+  text-align: left;
+}
+
+th {
+  background: #eef4ed;
+  color: #2e6b3d;
+}
+
+.success {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.warning {
+  color: #b36b00;
+  font-weight: bold;
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.section-card {
+  background: #f4f8f3;
+  border: 1px solid #dbe6da;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.section-card strong {
+  display: block;
+  color: #2e6b3d;
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.small {
+  color: #6d766d;
+  font-size: 13px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #777;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .menu {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <!-- LOGO AGROCONTROL -->
+  <img
+    class="logo"
+    src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAH/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAEFAqf/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAEDAQE/AX//xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAECAQE/AX//xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAY/Aqf/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAE/Iaf/2gAMAwEAAgADAAAAEP/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QH//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QH//EABQQAQAAAAAAAAAAAAAAAAAAABD/2gAIAQEAAT8QH//Z"
+    alt="Agrocontrol"
+  >
+
+  <h1>Agrocontrol</h1>
+
+</header>
+
+<div class="container">
+
+  <div class="menu">
+    <button onclick="show('cliente')">Portal Cliente</button>
+    <button onclick="show('admin')">Administración</button>
+  </div>
+
+
+  <!-- ================= PORTAL CLIENTE ================= -->
+
+  <div id="cliente" class="panel">
+
+    <h2>Portal Cliente</h2>
+
+    <p>Ingresá tu código de cliente:</p>
+
+    <input
+      type="text"
+      id="codigoCliente"
+      placeholder="Ejemplo: JP-001"
+    >
+
+    <button class="action" onclick="buscarCliente()">
+      Ingresar
+    </button>
+
+    <div id="clienteResultado"></div>
+
+  </div>
+
+
+  <!-- ================= ADMINISTRACIÓN ================= -->
+
+  <div id="admin" class="panel">
+
+    <h2>Panel de Administración</h2>
+
+    <p>
+      Acá vas a poder gestionar clientes y sumar hectáreas.
+    </p>
+
+
+    <!-- AGREGAR CLIENTE -->
+
+    <div class="card">
+
+      <h3>Agregar nuevo cliente</h3>
+
+      <label>Nombre del cliente</label>
+
+      <input
+        type="text"
+        id="nuevoNombre"
+        placeholder="Ejemplo: Juan Pérez"
+      >
+
+      <label>Código</label>
+
+      <input
+        type="text"
+        id="nuevoCodigo"
+        placeholder="Ejemplo: JP-001"
+      >
+
+      <label>Hectáreas iniciales</label>
+
+      <input
+        type="number"
+        id="nuevasHa"
+        placeholder="Ejemplo: 420"
+        min="0"
+      >
+
+      <button class="action" onclick="agregarCliente()">
+        ➕ Cargar cliente
+      </button>
+
+    </div>
+
+
+    <hr>
+
+
+    <!-- SUMAR HECTÁREAS -->
+
+    <div class="card">
+
+      <h3>Sumar hectáreas a un cliente</h3>
+
+      <label>Cliente</label>
+
+      <select id="clienteSelect"></select>
+
+      <label>Hectáreas a sumar</label>
+
+      <input
+        type="number"
+        id="haSumar"
+        placeholder="Ejemplo: 50"
+        min="0"
+      >
+
+      <button class="action" onclick="sumarHa()">
+        Cargar
+      </button>
+
+    </div>
+
+
+    <!-- TABLA -->
+
+    <div class="card">
+
+      <h3>Clientes</h3>
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Código</th>
+            <th>Ha</th>
+            <th>Progreso</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+
+        <tbody id="tablaClientes"></tbody>
+
+      </table>
+
+    </div>
+
+
+    <p class="small">
+      Los clientes se guardan en este navegador.
+    </p>
+
+  </div>
+
+</div>
+
+
+<footer>
+  Agrocontrol — Gestión agrícola
+</footer>
+
+
+<script>
+
+/* =========================================
+   DATOS DE CLIENTES
+========================================= */
+
+let clientes =
+  JSON.parse(localStorage.getItem("agrocontrol_clientes")) || [
+
+    {
+      nombre: "Juan Pérez",
+      codigo: "JP-001",
+      ha: 420
+    },
+
+    {
+      nombre: "Cliente 2",
+      codigo: "AC-002",
+      ha: 275
+    },
+
+    {
+      nombre: "Cliente 3",
+      codigo: "AC-003",
+      ha: 510
+    }
+
+  ];
+
+
+/* =========================================
+   GUARDAR
+========================================= */
+
+function guardarClientes() {
+
+  localStorage.setItem(
+    "agrocontrol_clientes",
+    JSON.stringify(clientes)
+  );
 
 }
 
-function show(x){
 
- document.getElementById('cliente')
- .classList.toggle('hidden',x!=='cliente');
+/* =========================================
+   MOSTRAR PANEL
+========================================= */
 
- document.getElementById('admin')
- .classList.toggle('hidden',x!=='admin');
+function show(panel) {
 
- if(x==='admin'){
+  document.querySelectorAll(".panel")
+    .forEach(p => p.classList.remove("active"));
+
+  document.getElementById(panel)
+    .classList.add("active");
+
+  if (panel === "admin") {
+    render();
+  }
+
+}
+
+
+/* =========================================
+   MOSTRAR CLIENTES
+========================================= */
+
+function render() {
+
+  const select = document.getElementById("clienteSelect");
+  const tabla = document.getElementById("tablaClientes");
+
+  select.innerHTML = "";
+  tabla.innerHTML = "";
+
+  clientes.forEach((cliente, index) => {
+
+    const option = document.createElement("option");
+
+    option.value = index;
+    option.textContent =
+      cliente.nombre + " — " + cliente.codigo;
+
+    select.appendChild(option);
+
+
+    const objetivo = 500;
+
+    let porcentaje =
+      (cliente.ha / objetivo) * 100;
+
+    if (porcentaje > 100) {
+      porcentaje = 100;
+    }
+
+    const estado =
+      cliente.ha >= objetivo
+        ? '<span class="success">Objetivo cumplido</span>'
+        : '<span class="warning">En progreso</span>';
+
+
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+      <td>${cliente.nombre}</td>
+      <td>${cliente.codigo}</td>
+      <td>${cliente.ha}</td>
+      <td>${Math.round(porcentaje)}%</td>
+      <td>${estado}</td>
+    `;
+
+    tabla.appendChild(fila);
+
+  });
+
+}
+
+
+/* =========================================
+   AGREGAR CLIENTE
+========================================= */
+
+function agregarCliente() {
+
+  const nombre =
+    document.getElementById("nuevoNombre").value.trim();
+
+  const codigo =
+    document.getElementById("nuevoCodigo").value.trim();
+
+  const ha =
+    Number(document.getElementById("nuevasHa").value);
+
+
+  if (!nombre || !codigo) {
+
+    alert("Completá el nombre y el código del cliente.");
+
+    return;
+  }
+
+
+  if (isNaN(ha) || ha < 0) {
+
+    alert("Ingresá una cantidad válida de hectáreas.");
+
+    return;
+  }
+
+
+  const existe =
+    clientes.some(
+      cliente =>
+        cliente.codigo.toLowerCase() === codigo.toLowerCase()
+    );
+
+
+  if (existe) {
+
+    alert("Ese código de cliente ya existe.");
+
+    return;
+  }
+
+
+  clientes.push({
+
+    nombre: nombre,
+
+    codigo: codigo,
+
+    ha: ha
+
+  });
+
+
+  guardarClientes();
+
   render();
- }
+
+
+  document.getElementById("nuevoNombre").value = "";
+  document.getElementById("nuevoCodigo").value = "";
+  document.getElementById("nuevasHa").value = "";
+
+
+  alert("Cliente cargado correctamente.");
 
 }
 
-function buscarCliente(){
 
- let code=document
- .getElementById('codigo')
- .value
- .trim()
- .toUpperCase();
+/* =========================================
+   SUMAR HECTÁREAS
+========================================= */
 
- let c=clientes.find(x=>x.codigo===code);
+function sumarHa() {
 
- let p=document.getElementById('clientePanel');
- let m=document.getElementById('loginMsg');
+  const indice =
+    Number(document.getElementById("clienteSelect").value);
 
- if(!c){
+  const cantidad =
+    Number(document.getElementById("haSumar").value);
 
-  p.classList.add('hidden');
 
-  m.textContent=
-  'Código no encontrado.';
+  if (isNaN(cantidad) || cantidad <= 0) {
 
-  return;
- }
+    alert("Ingresá una cantidad válida de hectáreas.");
 
- p.classList.remove('hidden');
+    return;
+  }
 
- m.textContent='Acceso correcto.';
 
- document.getElementById('cNombre')
- .textContent=c.nombre;
+  if (!clientes[indice]) {
 
- document.getElementById('cHa')
- .textContent=c.ha.toFixed(1)+' ha';
+    alert("Seleccioná un cliente.");
 
- document.getElementById('cFaltan')
- .textContent=
- Math.max(0,500-c.ha).toFixed(1)+' ha';
+    return;
+  }
 
- document.getElementById('cBar')
- .style.width=
- Math.min(100,c.ha/5)+'%';
 
- document.getElementById('cBeneficio')
- .innerHTML=
- c.ha>=500
- ?
- '<b>🎉 Beneficio desbloqueado:</b> tenés 10% de descuento para tu próximo servicio.'
- :
- 'Te faltan <b>'+
- Math.max(0,500-c.ha).toFixed(1)+
- ' ha</b> para desbloquear el 10% de descuento en tu próximo servicio.';
+  clientes[indice].ha += cantidad;
 
- p.scrollIntoView({behavior:'smooth'});
+
+  guardarClientes();
+
+  render();
+
+
+  document.getElementById("haSumar").value = "";
+
+
+  alert("Hectáreas cargadas correctamente.");
 
 }
 
-function agregarCliente(){
 
- let nombre=document
- .getElementById('nuevoNombre')
- .value
- .trim();
+/* =========================================
+   BUSCAR CLIENTE
+========================================= */
 
- let codigo=document
- .getElementById('nuevoCodigo')
- .value
- .trim()
- .toUpperCase();
+function buscarCliente() {
 
- let ha=Number(
- document.getElementById('nuevasHa').value
- );
+  const codigo =
+    document.getElementById("codigoCliente")
+      .value
+      .trim()
+      .toLowerCase();
 
- let msg=document
- .getElementById('nuevoClienteMsg');
 
- if(!nombre){
+  const resultado =
+    document.getElementById("clienteResultado");
 
-  msg.textContent=
-  'Ingresá el nombre del cliente.';
 
-  return;
- }
+  const cliente =
+    clientes.find(
+      c => c.codigo.toLowerCase() === codigo
+    );
 
- if(!codigo){
 
-  msg.textContent=
-  'Ingresá un código para el cliente.';
+  if (!cliente) {
 
-  return;
- }
+    resultado.innerHTML = `
+      <div class="card">
+        <p class="warning">
+          No encontramos un cliente con ese código.
+        </p>
+      </div>
+    `;
 
- if(clientes.some(c=>c.codigo===codigo)){
+    return;
+  }
 
-  msg.textContent=
-  'Ese código ya está utilizado.';
 
-  return;
- }
+  const objetivo = 500;
 
- if(isNaN(ha) || ha<0){
+  const faltan =
+    Math.max(0, objetivo - cliente.ha);
 
-  msg.textContent=
-  'Ingresá una cantidad válida de hectáreas.';
+  let porcentaje =
+    (cliente.ha / objetivo) * 100;
 
-  return;
- }
+  if (porcentaje > 100) {
+    porcentaje = 100;
+  }
 
- clientes.push({
-  nombre:nombre,
-  codigo:codigo,
-  ha:ha
- });
 
- guardarClientes();
+  const estado =
+    cliente.ha >= objetivo
+      ? "Objetivo cumplido"
+      : "En progreso";
 
- render();
 
- document.getElementById('nuevoNombre').value='';
- document.getElementById('nuevoCodigo').value='';
- document.getElementById('nuevasHa').value='';
+  resultado.innerHTML = `
 
- msg.textContent=
- '✅ Cliente cargado correctamente.';
+    <div class="card">
+
+      <h3>Hola, ${cliente.nombre}</h3>
+
+      <p>
+        <strong>Hectáreas acumuladas:</strong>
+        ${cliente.ha} ha
+      </p>
+
+      <p>
+        <strong>Objetivo:</strong>
+        ${objetivo} ha
+      </p>
+
+      <p>
+        <strong>Faltan:</strong>
+        ${faltan} ha
+      </p>
+
+      <div class="progress">
+        <div
+          class="progress-bar"
+          style="width:${porcentaje}%"
+        ></div>
+      </div>
+
+      <p>
+        <strong>Progreso:</strong>
+        ${Math.round(porcentaje)}%
+      </p>
+
+      <p>
+        <strong>Estado:</strong>
+        ${estado}
+      </p>
+
+
+      <h3>Servicios</h3>
+
+      <div class="section-grid">
+
+        <div class="section-card">
+          <strong>🚜 Servicios</strong>
+          <span class="small">
+            Próximamente
+          </span>
+        </div>
+
+        <div class="section-card">
+          <strong>🧪 Insumos</strong>
+          <span class="small">
+            Próximamente
+          </span>
+        </div>
+
+        <div class="section-card">
+          <strong>📍 Monitoreo</strong>
+          <span class="small">
+            Próximamente
+          </span>
+        </div>
+
+        <div class="section-card">
+          <strong>🛰️ Aplicaciones</strong>
+          <span class="small">
+            Próximamente
+          </span>
+        </div>
+
+        <div class="section-card">
+          <strong>🗺️ Mapas</strong>
+          <span class="small">
+            Próximamente
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
 
 }
 
-function sumarHa(){
 
- let i=Number(
- document.getElementById('sel').value
- );
-
- let v=Number(
- document.getElementById('sumar').value
- );
-
- let msg=document
- .getElementById('adminMsg');
-
- if(!v || v<=0){
-
-  msg.textContent=
-  'Ingresá una cantidad válida.';
-
-  return;
- }
-
- clientes[i].ha+=v;
-
- guardarClientes();
-
- document.getElementById('sumar').value='';
-
- msg.textContent=
- '✅ Hectáreas cargadas correctamente.';
-
- render();
-
-}
+/* =========================================
+   INICIO
+========================================= */
 
 render();
 
 </script>
-</section>
+
+</body>
+</html>
+```
