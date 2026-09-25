@@ -1,212 +1,184 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agrocontrol</title>
+<title>Agrocontrol | Portal y Administración</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f7f2;
-  color: #263326;
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f7f5;
+  color:#222;
 }
 
-header {
-  background: #ffffff;
-  padding: 18px 30px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+header{
+  background:white;
+  padding:15px 30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.logo {
-  height: 65px;
-  max-width: 240px;
-  object-fit: contain;
+.logo{
+  width:180px;
+  max-height:70px;
+  object-fit:contain;
 }
 
-header h1 {
-  margin: 0;
-  color: #2e6b3d;
-  font-size: 25px;
+nav{
+  display:flex;
+  gap:10px;
 }
 
-.container {
-  max-width: 1100px;
-  margin: 35px auto;
-  padding: 20px;
+button{
+  border:none;
+  border-radius:8px;
+  padding:11px 18px;
+  cursor:pointer;
+  background:#198754;
+  color:white;
+  font-weight:bold;
 }
 
-.menu {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-bottom: 30px;
+button:hover{
+  opacity:.9;
 }
 
-.menu button {
-  border: none;
-  background: #2e6b3d;
-  color: white;
-  padding: 16px 30px;
-  border-radius: 10px;
-  font-size: 17px;
-  cursor: pointer;
+.container{
+  max-width:1100px;
+  margin:35px auto;
+  padding:0 20px;
 }
 
-.menu button:hover {
-  background: #245631;
+.hero{
+  background:#198754;
+  color:white;
+  border-radius:16px;
+  padding:40px;
+  margin-bottom:25px;
 }
 
-.panel {
-  display: none;
-  background: white;
-  padding: 30px;
-  border-radius: 14px;
-  box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+.hero h1{
+  font-size:34px;
+  margin-bottom:10px;
 }
 
-.panel.active {
-  display: block;
+.card{
+  background:white;
+  border-radius:14px;
+  padding:25px;
+  margin-bottom:20px;
+  box-shadow:0 2px 10px rgba(0,0,0,.07);
 }
 
-h2 {
-  color: #2e6b3d;
-  margin-top: 0;
+h2{
+  margin-bottom:15px;
+  color:#146c43;
 }
 
-h3 {
-  color: #3d6546;
+h3{
+  margin-bottom:8px;
 }
 
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin: 7px 0 15px;
-  border: 1px solid #ccd5cc;
-  border-radius: 8px;
-  font-size: 15px;
+input,select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  margin:7px 0 12px;
+  font-size:15px;
 }
 
-button.action {
-  background: #2e6b3d;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 15px;
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
 }
 
-button.action:hover {
-  background: #245631;
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
 }
 
-hr {
-  border: none;
-  border-top: 1px solid #ddd;
-  margin: 30px 0;
+th,td{
+  padding:12px;
+  border-bottom:1px solid #ddd;
+  text-align:left;
 }
 
-.card {
-  background: #f7faf6;
-  padding: 20px;
-  border-radius: 12px;
-  margin-top: 20px;
+th{
+  background:#e9f5ee;
 }
 
-.progress {
-  height: 18px;
-  background: #dfe7df;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 12px 0;
+.progress{
+  height:22px;
+  background:#ddd;
+  border-radius:20px;
+  overflow:hidden;
+  margin:12px 0;
 }
 
-.progress-bar {
-  height: 100%;
-  background: #4c9a5d;
-  width: 0%;
-  transition: width 0.3s;
+.progress-bar{
+  height:100%;
+  background:#198754;
+  color:white;
+  text-align:center;
+  line-height:22px;
+  font-size:12px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
 }
 
-th, td {
-  border-bottom: 1px solid #ddd;
-  padding: 12px 8px;
-  text-align: left;
+.service{
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:20px;
+  background:#fafafa;
 }
 
-th {
-  background: #eef4ed;
-  color: #2e6b3d;
+.service p{
+  color:#666;
+  margin-top:8px;
 }
 
-.success {
-  color: #2e7d32;
-  font-weight: bold;
+.hidden{
+  display:none;
 }
 
-.warning {
-  color: #b36b00;
-  font-weight: bold;
+.msg{
+  margin-top:12px;
+  font-weight:bold;
 }
 
-.section-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
+.danger{
+  background:#dc3545;
 }
 
-.section-card {
-  background: #f4f8f3;
-  border: 1px solid #dbe6da;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
+.secondary{
+  background:#6c757d;
 }
 
-.section-card strong {
-  display: block;
-  color: #2e6b3d;
-  font-size: 17px;
-  margin-bottom: 8px;
-}
-
-.small {
-  color: #6d766d;
-  font-size: 13px;
-}
-
-footer {
-  text-align: center;
-  padding: 25px;
-  color: #777;
-  font-size: 13px;
-}
-
-@media (max-width: 700px) {
-  header {
-    flex-direction: column;
-    gap: 10px;
+@media(max-width:600px){
+  header{
+    flex-direction:column;
+    gap:15px;
   }
 
-  .menu {
-    flex-direction: column;
+  .hero{
+    padding:25px;
   }
 }
 </style>
@@ -216,105 +188,173 @@ footer {
 
 <header>
 
-  <!-- LOGO AGROCONTROL -->
-  <img
-    class="logo"
-    src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAH/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAEFAqf/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAEDAQE/AX//xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAECAQE/AX//xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAY/Aqf/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAE/Iaf/2gAMAwEAAgADAAAAEP/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QH//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QH//EABQQAQAAAAAAAAAAAAAAAAAAABD/2gAIAQEAAT8QH//Z"
-    alt="Agrocontrol"
-  >
+  <!-- Logo Agrocontrol -->
+  <div>
+    <img
+      class="logo"
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='180'%3E%3Crect width='500' height='180' fill='white'/%3E%3Ctext x='250' y='100' text-anchor='middle' font-family='Arial' font-size='55' font-weight='bold' fill='%23198754'%3EAGROCONTROL%3C/text%3E%3C/svg%3E"
+      alt="Agrocontrol">
+  </div>
 
-  <h1>Agrocontrol</h1>
+  <nav>
+    <button onclick="mostrar('cliente')">Portal Cliente</button>
+    <button onclick="mostrar('admin')">Administración</button>
+  </nav>
 
 </header>
 
+
 <div class="container">
 
-  <div class="menu">
-    <button onclick="show('cliente')">Portal Cliente</button>
-    <button onclick="show('admin')">Administración</button>
-  </div>
+  <!-- PORTAL CLIENTE -->
+  <section id="cliente">
 
-
-  <!-- ================= PORTAL CLIENTE ================= -->
-
-  <div id="cliente" class="panel">
-
-    <h2>Portal Cliente</h2>
-
-    <p>Ingresá tu código de cliente:</p>
-
-    <input
-      type="text"
-      id="codigoCliente"
-      placeholder="Ejemplo: JP-001"
-    >
-
-    <button class="action" onclick="buscarCliente()">
-      Ingresar
-    </button>
-
-    <div id="clienteResultado"></div>
-
-  </div>
-
-
-  <!-- ================= ADMINISTRACIÓN ================= -->
-
-  <div id="admin" class="panel">
-
-    <h2>Panel de Administración</h2>
-
-    <p>
-      Acá vas a poder gestionar clientes y sumar hectáreas.
-    </p>
-
-
-    <!-- AGREGAR CLIENTE -->
+    <div class="hero">
+      <h1>Portal Agrocontrol</h1>
+      <p>Consultá tus hectáreas, servicios e insumos.</p>
+    </div>
 
     <div class="card">
 
-      <h3>Agregar nuevo cliente</h3>
+      <h2>Beneficios de Cliente</h2>
 
-      <label>Nombre del cliente</label>
-
-      <input
-        type="text"
-        id="nuevoNombre"
-        placeholder="Ejemplo: Juan Pérez"
-      >
-
-      <label>Código</label>
+      <label>Código de cliente</label>
 
       <input
         type="text"
-        id="nuevoCodigo"
-        placeholder="Ejemplo: JP-001"
-      >
+        id="codigoCliente"
+        placeholder="Ejemplo: JP-001">
 
-      <label>Hectáreas iniciales</label>
+      <button onclick="buscarCliente()">Consultar</button>
 
-      <input
-        type="number"
-        id="nuevasHa"
-        placeholder="Ejemplo: 420"
-        min="0"
-      >
+      <div id="clientePanel" class="hidden">
 
-      <button class="action" onclick="agregarCliente()">
-        ➕ Cargar cliente
+        <hr style="margin:25px 0">
+
+        <h2 id="nombreCliente"></h2>
+
+        <p>
+          <strong>Hectáreas trabajadas:</strong>
+          <span id="hectareasCliente"></span> ha
+        </p>
+
+        <p>
+          <strong>Objetivo:</strong> 500 ha
+        </p>
+
+        <div class="progress">
+          <div
+            id="barra"
+            class="progress-bar"
+            style="width:0%">
+          </div>
+        </div>
+
+        <p>
+          <strong>Hectáreas restantes:</strong>
+          <span id="restantes"></span> ha
+        </p>
+
+        <p id="beneficio" class="msg"></p>
+
+        <hr style="margin:25px 0">
+
+        <h2>Servicios e Insumos</h2>
+
+        <div class="grid">
+
+          <div class="service">
+            <h3>🚜 Servicios</h3>
+            <p>Monitoreo de lotes</p>
+            <p>Aplicaciones con dron</p>
+            <p>Mapas de prescripción</p>
+            <p>Control de plagas</p>
+          </div>
+
+          <div class="service">
+            <h3>📦 Insumos</h3>
+            <p>Productos fitosanitarios</p>
+            <p>Fertilizantes</p>
+            <p>Semillas</p>
+            <p>Otros insumos agrícolas</p>
+          </div>
+
+          <div class="service">
+            <h3>📍 Monitoreo</h3>
+            <p>Seguimiento de lotes y plagas.</p>
+          </div>
+
+          <div class="service">
+            <h3>🚁 Aplicaciones</h3>
+            <p>Aplicaciones agrícolas con drones.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="clienteError" class="msg"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ADMINISTRACIÓN -->
+  <section id="admin" class="hidden">
+
+    <div class="hero">
+      <h1>Panel de Administración</h1>
+      <p>Administrá clientes y hectáreas.</p>
+    </div>
+
+
+    <!-- NUEVO CLIENTE -->
+    <div class="card">
+
+      <h2>Agregar nuevo cliente</h2>
+
+      <div class="form-grid">
+
+        <div>
+          <label>Nombre del cliente</label>
+          <input
+            type="text"
+            id="nuevoNombre"
+            placeholder="Nombre">
+        </div>
+
+        <div>
+          <label>Código</label>
+          <input
+            type="text"
+            id="nuevoCodigo"
+            placeholder="Ejemplo: AC-004">
+        </div>
+
+        <div>
+          <label>Hectáreas iniciales</label>
+          <input
+            type="number"
+            id="nuevasHa"
+            placeholder="0">
+        </div>
+
+      </div>
+
+      <button onclick="agregarCliente()">
+        Agregar cliente
       </button>
+
+      <div id="adminMsg" class="msg"></div>
 
     </div>
 
 
-    <hr>
-
-
     <!-- SUMAR HECTÁREAS -->
-
     <div class="card">
 
-      <h3>Sumar hectáreas a un cliente</h3>
+      <h2>Agregar hectáreas</h2>
 
       <label>Cliente</label>
 
@@ -325,22 +365,19 @@ footer {
       <input
         type="number"
         id="haSumar"
-        placeholder="Ejemplo: 50"
-        min="0"
-      >
+        placeholder="Ejemplo: 50">
 
-      <button class="action" onclick="sumarHa()">
-        Cargar
+      <button onclick="sumarHa()">
+        Sumar hectáreas
       </button>
 
     </div>
 
 
     <!-- TABLA -->
-
     <div class="card">
 
-      <h3>Clientes</h3>
+      <h2>Clientes</h2>
 
       <table>
 
@@ -348,8 +385,7 @@ footer {
           <tr>
             <th>Cliente</th>
             <th>Código</th>
-            <th>Ha</th>
-            <th>Progreso</th>
+            <th>Hectáreas</th>
             <th>Estado</th>
           </tr>
         </thead>
@@ -360,56 +396,39 @@ footer {
 
     </div>
 
-
-    <p class="small">
-      Los clientes se guardan en este navegador.
-    </p>
-
-  </div>
+  </section>
 
 </div>
 
 
-<footer>
-  Agrocontrol — Gestión agrícola
-</footer>
-
-
 <script>
 
-/* =========================================
-   DATOS DE CLIENTES
-========================================= */
+let clientes = JSON.parse(
+  localStorage.getItem("agrocontrol_clientes")
+) || [
 
-let clientes =
-  JSON.parse(localStorage.getItem("agrocontrol_clientes")) || [
+  {
+    nombre:"Juan Pérez",
+    codigo:"JP-001",
+    ha:420
+  },
 
-    {
-      nombre: "Juan Pérez",
-      codigo: "JP-001",
-      ha: 420
-    },
+  {
+    nombre:"Cliente 2",
+    codigo:"AC-002",
+    ha:275
+  },
 
-    {
-      nombre: "Cliente 2",
-      codigo: "AC-002",
-      ha: 275
-    },
+  {
+    nombre:"Cliente 3",
+    codigo:"AC-003",
+    ha:510
+  }
 
-    {
-      nombre: "Cliente 3",
-      codigo: "AC-003",
-      ha: 510
-    }
-
-  ];
+];
 
 
-/* =========================================
-   GUARDAR
-========================================= */
-
-function guardarClientes() {
+function guardar(){
 
   localStorage.setItem(
     "agrocontrol_clientes",
@@ -419,344 +438,282 @@ function guardarClientes() {
 }
 
 
-/* =========================================
-   MOSTRAR PANEL
-========================================= */
+function estado(cliente){
 
-function show(panel) {
+  if(cliente.ha >= 500){
 
-  document.querySelectorAll(".panel")
-    .forEach(p => p.classList.remove("active"));
+    return "10% disponible";
 
-  document.getElementById(panel)
-    .classList.add("active");
-
-  if (panel === "admin") {
-    render();
   }
+
+  return "En progreso";
 
 }
 
 
-/* =========================================
-   MOSTRAR CLIENTES
-========================================= */
+function render(){
 
-function render() {
+  const tabla =
+    document.getElementById("tablaClientes");
 
-  const select = document.getElementById("clienteSelect");
-  const tabla = document.getElementById("tablaClientes");
+  const select =
+    document.getElementById("clienteSelect");
 
-  select.innerHTML = "";
   tabla.innerHTML = "";
 
-  clientes.forEach((cliente, index) => {
-
-    const option = document.createElement("option");
-
-    option.value = index;
-    option.textContent =
-      cliente.nombre + " — " + cliente.codigo;
-
-    select.appendChild(option);
+  select.innerHTML = "";
 
 
-    const objetivo = 500;
+  clientes.forEach((cliente,index)=>{
 
-    let porcentaje =
-      (cliente.ha / objetivo) * 100;
-
-    if (porcentaje > 100) {
-      porcentaje = 100;
-    }
-
-    const estado =
-      cliente.ha >= objetivo
-        ? '<span class="success">Objetivo cumplido</span>'
-        : '<span class="warning">En progreso</span>';
-
-
-    const fila = document.createElement("tr");
+    const fila =
+      document.createElement("tr");
 
     fila.innerHTML = `
+
       <td>${cliente.nombre}</td>
+
       <td>${cliente.codigo}</td>
-      <td>${cliente.ha}</td>
-      <td>${Math.round(porcentaje)}%</td>
-      <td>${estado}</td>
+
+      <td>${cliente.ha} ha</td>
+
+      <td>${estado(cliente)}</td>
+
     `;
 
     tabla.appendChild(fila);
+
+
+    const opcion =
+      document.createElement("option");
+
+    opcion.value = index;
+
+    opcion.textContent =
+      cliente.nombre + " - " + cliente.codigo;
+
+    select.appendChild(opcion);
 
   });
 
 }
 
 
-/* =========================================
-   AGREGAR CLIENTE
-========================================= */
+function mostrar(seccion){
 
-function agregarCliente() {
+  document
+    .getElementById("cliente")
+    .classList.add("hidden");
 
-  const nombre =
-    document.getElementById("nuevoNombre").value.trim();
+  document
+    .getElementById("admin")
+    .classList.add("hidden");
+
+  document
+    .getElementById(seccion)
+    .classList.remove("hidden");
+
+}
+
+
+function buscarCliente(){
 
   const codigo =
-    document.getElementById("nuevoCodigo").value.trim();
+    document
+      .getElementById("codigoCliente")
+      .value
+      .trim()
+      .toUpperCase();
 
-  const ha =
-    Number(document.getElementById("nuevasHa").value);
-
-
-  if (!nombre || !codigo) {
-
-    alert("Completá el nombre y el código del cliente.");
-
-    return;
-  }
-
-
-  if (isNaN(ha) || ha < 0) {
-
-    alert("Ingresá una cantidad válida de hectáreas.");
-
-    return;
-  }
-
-
-  const existe =
-    clientes.some(
-      cliente =>
-        cliente.codigo.toLowerCase() === codigo.toLowerCase()
+  const cliente =
+    clientes.find(
+      c => c.codigo.toUpperCase() === codigo
     );
 
 
-  if (existe) {
+  const panel =
+    document.getElementById("clientePanel");
 
-    alert("Ese código de cliente ya existe.");
+  const error =
+    document.getElementById("clienteError");
+
+
+  if(!cliente){
+
+    panel.classList.add("hidden");
+
+    error.textContent =
+      "No encontramos ese código de cliente.";
 
     return;
+
+  }
+
+
+  error.textContent = "";
+
+  panel.classList.remove("hidden");
+
+
+  document.getElementById("nombreCliente")
+    .textContent = cliente.nombre;
+
+
+  document.getElementById("hectareasCliente")
+    .textContent = cliente.ha;
+
+
+  const restantes =
+    Math.max(0,500-cliente.ha);
+
+
+  document.getElementById("restantes")
+    .textContent = restantes;
+
+
+  const porcentaje =
+    Math.min(100,(cliente.ha/500)*100);
+
+
+  const barra =
+    document.getElementById("barra");
+
+  barra.style.width =
+    porcentaje + "%";
+
+  barra.textContent =
+    Math.round(porcentaje) + "%";
+
+
+  document.getElementById("beneficio")
+    .textContent =
+      cliente.ha >= 500
+      ? "¡Objetivo alcanzado! Tenés un 10% disponible."
+      : "Seguís avanzando hacia el objetivo de 500 ha.";
+
+}
+
+
+function agregarCliente(){
+
+  const nombre =
+    document
+      .getElementById("nuevoNombre")
+      .value
+      .trim();
+
+  const codigo =
+    document
+      .getElementById("nuevoCodigo")
+      .value
+      .trim()
+      .toUpperCase();
+
+  const ha =
+    Number(
+      document
+        .getElementById("nuevasHa")
+        .value
+    );
+
+
+  const mensaje =
+    document.getElementById("adminMsg");
+
+
+  if(!nombre || !codigo){
+
+    mensaje.textContent =
+      "Completá el nombre y el código.";
+
+    return;
+
+  }
+
+
+  if(clientes.some(c =>
+    c.codigo.toUpperCase() === codigo
+  )){
+
+    mensaje.textContent =
+      "Ese código ya existe.";
+
+    return;
+
   }
 
 
   clientes.push({
 
-    nombre: nombre,
+    nombre:nombre,
 
-    codigo: codigo,
+    codigo:codigo,
 
-    ha: ha
+    ha:isNaN(ha) ? 0 : ha
 
   });
 
 
-  guardarClientes();
+  guardar();
 
   render();
 
 
-  document.getElementById("nuevoNombre").value = "";
-  document.getElementById("nuevoCodigo").value = "";
-  document.getElementById("nuevasHa").value = "";
+  document.getElementById("nuevoNombre")
+    .value = "";
+
+  document.getElementById("nuevoCodigo")
+    .value = "";
+
+  document.getElementById("nuevasHa")
+    .value = "";
 
 
-  alert("Cliente cargado correctamente.");
+  mensaje.textContent =
+    "Cliente agregado correctamente.";
 
 }
 
 
-/* =========================================
-   SUMAR HECTÁREAS
-========================================= */
-
-function sumarHa() {
+function sumarHa(){
 
   const indice =
-    Number(document.getElementById("clienteSelect").value);
+    Number(
+      document
+        .getElementById("clienteSelect")
+        .value
+    );
 
   const cantidad =
-    Number(document.getElementById("haSumar").value);
+    Number(
+      document
+        .getElementById("haSumar")
+        .value
+    );
 
 
-  if (isNaN(cantidad) || cantidad <= 0) {
+  if(isNaN(cantidad) || cantidad <= 0){
 
     alert("Ingresá una cantidad válida de hectáreas.");
 
     return;
-  }
 
-
-  if (!clientes[indice]) {
-
-    alert("Seleccioná un cliente.");
-
-    return;
   }
 
 
   clientes[indice].ha += cantidad;
 
 
-  guardarClientes();
+  guardar();
 
   render();
 
 
-  document.getElementById("haSumar").value = "";
-
-
-  alert("Hectáreas cargadas correctamente.");
+  document.getElementById("haSumar")
+    .value = "";
 
 }
 
-
-/* =========================================
-   BUSCAR CLIENTE
-========================================= */
-
-function buscarCliente() {
-
-  const codigo =
-    document.getElementById("codigoCliente")
-      .value
-      .trim()
-      .toLowerCase();
-
-
-  const resultado =
-    document.getElementById("clienteResultado");
-
-
-  const cliente =
-    clientes.find(
-      c => c.codigo.toLowerCase() === codigo
-    );
-
-
-  if (!cliente) {
-
-    resultado.innerHTML = `
-      <div class="card">
-        <p class="warning">
-          No encontramos un cliente con ese código.
-        </p>
-      </div>
-    `;
-
-    return;
-  }
-
-
-  const objetivo = 500;
-
-  const faltan =
-    Math.max(0, objetivo - cliente.ha);
-
-  let porcentaje =
-    (cliente.ha / objetivo) * 100;
-
-  if (porcentaje > 100) {
-    porcentaje = 100;
-  }
-
-
-  const estado =
-    cliente.ha >= objetivo
-      ? "Objetivo cumplido"
-      : "En progreso";
-
-
-  resultado.innerHTML = `
-
-    <div class="card">
-
-      <h3>Hola, ${cliente.nombre}</h3>
-
-      <p>
-        <strong>Hectáreas acumuladas:</strong>
-        ${cliente.ha} ha
-      </p>
-
-      <p>
-        <strong>Objetivo:</strong>
-        ${objetivo} ha
-      </p>
-
-      <p>
-        <strong>Faltan:</strong>
-        ${faltan} ha
-      </p>
-
-      <div class="progress">
-        <div
-          class="progress-bar"
-          style="width:${porcentaje}%"
-        ></div>
-      </div>
-
-      <p>
-        <strong>Progreso:</strong>
-        ${Math.round(porcentaje)}%
-      </p>
-
-      <p>
-        <strong>Estado:</strong>
-        ${estado}
-      </p>
-
-
-      <h3>Servicios</h3>
-
-      <div class="section-grid">
-
-        <div class="section-card">
-          <strong>🚜 Servicios</strong>
-          <span class="small">
-            Próximamente
-          </span>
-        </div>
-
-        <div class="section-card">
-          <strong>🧪 Insumos</strong>
-          <span class="small">
-            Próximamente
-          </span>
-        </div>
-
-        <div class="section-card">
-          <strong>📍 Monitoreo</strong>
-          <span class="small">
-            Próximamente
-          </span>
-        </div>
-
-        <div class="section-card">
-          <strong>🛰️ Aplicaciones</strong>
-          <span class="small">
-            Próximamente
-          </span>
-        </div>
-
-        <div class="section-card">
-          <strong>🗺️ Mapas</strong>
-          <span class="small">
-            Próximamente
-          </span>
-        </div>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================
-   INICIO
-========================================= */
 
 render();
 
@@ -764,4 +721,3 @@ render();
 
 </body>
 </html>
-```
