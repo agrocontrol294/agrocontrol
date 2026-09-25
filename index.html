@@ -1,96 +1,300 @@
-<!doctype html>
-<html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Agrocontrol | Portal y Administración</title>
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7f8;color:#172126}
-.wrap{max-width:1100px;margin:auto;padding:20px}header,.card,.hero{background:#fff;border-radius:20px;box-shadow:0 6px 24px #0001}
-header{padding:15px 22px;display:flex;align-items:center;justify-content:space-between}.logo{height:62px;max-width:240px;object-fit:contain}
-nav button{margin-left:7px}button,.wa{border:0;border-radius:11px;padding:12px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
-.primary{background:#35a9c7;color:#fff}.dark{background:#172126;color:#fff}.light{background:#e9f0f2;color:#172126}
-.hero{margin-top:20px;background:#172126;color:#fff;padding:30px}h1{margin:0 0 8px;font-size:32px}.hero p{color:#cbd5d9}
-.login{display:flex;gap:9px;max-width:580px;margin-top:20px}input,select{width:100%;padding:12px;border:1px solid #d5dfe2;border-radius:10px;font-size:15px}
-.card{padding:22px;margin-top:20px}.hidden{display:none}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.stat{background:#f5f8f9;border-radius:15px;padding:18px}.num{font-size:27px;font-weight:800}
-.progress{height:17px;background:#e5ecee;border-radius:20px;overflow:hidden;margin:13px 0}.bar{height:100%;background:#35a9c7}
-table{width:100%;border-collapse:collapse}th,td{padding:13px;text-align:left;border-bottom:1px solid #e4eaec}th{font-size:13px;color:#66747a}
-.good{color:#18834c;font-weight:bold}.warn{color:#b87900;font-weight:bold}
-.formgrid{display:grid;grid-template-columns:2fr 1fr auto;gap:10px;align-items:end}
-.note{padding:14px;border-radius:12px;background:#eef8fa;margin-top:15px}
-@media(max-width:750px){.grid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}header{flex-wrap:wrap;gap:12px}}
-</style></head><body><div class="wrap">
-
-<header>
-<img class="logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wgARCAD7AfgDASIAAhEBAxEB/8QAGgABAAIDAQAAAAAAAAAAAAAAAAMEAQIFBv/EABcBAQEBAQAAAAAAAAAAAAAAAAABAgP/2gAMAwEAAhADEAAAAu+EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMQJY1qY3i2qEt5plu5o7S3FfeWVjM0AAAAAAAAAAAAAAAAAAAAAAAAxmukeqfpyiklimt8walnFfKTaY2WPWzsVJJIrJpaO0txDLjpkAAAAAAAAAAAAAAAAAAAAACpbq6zmTMaQ72diuscOa62ILxX0tkpYvR6zBLrElqGKYhzZiJJaO622m+OgAAAAAAAAAAAAAAAAAAACGbBpvFMgLr5PucQt+i8d6wlAAxkRQXFzRm3r7xYgWJa1iOK5vK9jn1BQAAAAAAAAAAAAAAAAAANNs4Mlc4PZ43pjx3ZpQnq2MgAADGRWivQb5kE6QS7QWXc17HPqCgAAAAAAAAAAAAAAAAAAOH2vKnX6nGsmnB9V5g9De876IU6HOL2nWtnn4/SDzlu1xz0wIa96vrnnENqqlqDFzdYzz7AAAAAAAAAAAAAAAAAAAc2jD2S6B5/wBBTPNdnih6XgesAAFK6AGMilvtD042K9ynLPNWtZ2E0AAAAAAAAAAAAAAAABryuuPHeosgBjI8hp67yJd9L5n0wAAAABDXmj6crVS3Tl3t17GdBNAAAAAAAAAAAAAAAAAAAAAPIev4RzfXeO7x1AADU2NDbTGtzDZ10saSzDJnYAAAAAAAAAAAAAAAAAAAAACOQeWg9bxDoXvIWz0jkDr8mnk9BkMY2GuwAAAAAAAAAAAAAAAAAAAAHB65O4+p2nKqHoFPmnecvU6ziznRrcvoBpEXLPAnO08/Idxz+eegUdDogAAAAAAAAAAAAAAAAAAVbXBIehSnNd6u5rJHkdajCab2eeem890+OdCrpKV7O8xX6nH6Zx99rRU6HL3NuhTwd0AAAAAAAAAAAAAAAAAADXYYZEW+w1bDEUwRSjXWQathhka5yMY2EaQa43AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAgADAAAAIffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffV2Y4okdffffffffffffffffffffffffb4mVMQLEIRvfffffffffffffffffffffUMcvOEhbiWhXffffffffffffffffffffYk/abfffU1IAc/fffffffffffffffffffWOeWffffaRYy4/fffffffffffffffffffeecfZfeTfQ5ItfffffffffffffffffffXfef8AH33301avv3333333333333333313323d333332Dir33333333333333333333310n33mXHpI333333333333333333333333VXHW02333333333333333333333Hn3n2kUl3X3H3333333333333333332102UUlknkUE8H3333333333333333332200330102033333333333333333333333333333333333333333333333/2gAMAwEAAgADAAAAEAwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww7wAknhywwwwwwwwwwwwwwwwwwwwwwwwxhiIh9grIuAwwwwwwwwwwwwwwwwwwwww7Mqsilll38wKgwwwwwwwwwwwwwwwwwww3Lg18ww04OYgwgwwwwwwwwwwwwwwwwwww5x71ywwwx5aUNgwwwwwwwwwwwwwwwwwwwxy662yw5w67oQwwwwwwwwwwwwwwwwwww7w1wRwwww86btAwwwwwwwwwwwwwwwwwwwww4Qwwwww7DQgwwwwwwwwwwwwwwwwwwwww14www1oPPsgwwwwwwwwwwwwwwwwwwwww095zy04sAwwwwwwwwwwwwwwwwwwwywxyz1212yzywwwwwwwwwwwwwwwwwwwxxxy0/2/+080Vwwwwwwwwwwwwwwwwwww0w48008w80884wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww//E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" alt="Agrocontrol">
-<nav><button class="light" onclick="show('cliente')">Portal Cliente</button><button class="dark" onclick="show('admin')">Administración</button></nav>
-</header>
-
-<section id="cliente" class="hero">
-<h1>Beneficios de Cliente</h1><p>Ingresá tu código personal para consultar tus hectáreas y beneficios.</p>
-<div class="login"><input id="codigo" placeholder="Ej.: JP-001"><button class="primary" onclick="buscarCliente()">Ingresar</button></div>
-<p id="loginMsg"></p>
-</section>
-
-<section id="clientePanel" class="card hidden">
-<h2 id="cNombre">Juan Pérez</h2>
-<div class="grid">
-<div class="stat"><div class="num" id="cHa">420 ha</div>Hectáreas acumuladas</div>
-<div class="stat"><div class="num">500 ha</div>Meta</div>
-<div class="stat"><div class="num" id="cFaltan">80 ha</div>Faltan</div>
-</div>
-<div class="progress"><div class="bar" id="cBar"></div></div>
-<div class="note" id="cBeneficio"></div>
-</section>
-
 <section id="admin" class="card hidden">
+ <section id="admin" class="card hidden">
+  <section id="admin" class="card hidden">
 <h2>Panel de Administración</h2>
 <p>Acá vas a poder gestionar clientes y sumar hectáreas.</p>
+
+<h3>Agregar nuevo cliente</h3>
+
 <div class="formgrid">
-<div><label>Cliente</label><select id="sel"></select></div>
-<div><label>Hectáreas a sumar</label><input id="sumar" type="number" min="0" step="0.1" placeholder="Ej.: 35"></div>
+<div>
+<label>Nombre del cliente</label>
+<input id="nuevoNombre" type="text" placeholder="Ej.: Campo Los Álamos">
+</div>
+
+<div>
+<label>Código</label>
+<input id="nuevoCodigo" type="text" placeholder="Ej.: AC-004">
+</div>
+
+<div>
+<label>Hectáreas iniciales</label>
+<input id="nuevasHa" type="number" min="0" step="0.1" placeholder="Ej.: 350">
+</div>
+</div>
+
+<button class="primary" onclick="agregarCliente()" style="margin-top:12px">
+➕ Cargar cliente
+</button>
+
+<p id="nuevoClienteMsg"></p>
+
+<hr style="margin:25px 0;border:0;border-top:1px solid #e4eaec">
+
+<h3>Sumar hectáreas a un cliente</h3>
+
+<div class="formgrid">
+<div>
+<label>Cliente</label>
+<select id="sel"></select>
+</div>
+
+<div>
+<label>Hectáreas a sumar</label>
+<input id="sumar" type="number" min="0" step="0.1" placeholder="Ej.: 35">
+</div>
+
 <button class="primary" onclick="sumarHa()">Cargar</button>
 </div>
-<p id="adminMsg"></p>
-<h3>Clientes</h3>
-<table><thead><tr><th>Cliente</th><th>Código</th><th>Ha</th><th>Progreso</th><th>Estado</th></tr></thead>
-<tbody id="tabla"></tbody></table>
-<div class="note">Demo local: los cambios quedan guardados en este navegador. Para usarlo desde cualquier dispositivo y que cada cliente tenga su cuenta real, después conectamos una base de datos y acceso seguro.</div>
-</section>
 
-<footer style="text-align:center;color:#78858a;padding:25px">Agrocontrol · Portal de beneficios</footer>
+<p id="adminMsg"></p>
+
+<h3>Clientes</h3>
+
+<table>
+<thead>
+<tr>
+<th>Cliente</th>
+<th>Código</th>
+<th>Ha</th>
+<th>Progreso</th>
+<th>Estado</th>
+</tr>
+</thead>
+
+<tbody id="tabla"></tbody>
+</table>
+
+<div class="note">
+Los clientes quedan guardados en este navegador. Después podemos conectar una base de datos para que la información sea real y accesible desde cualquier dispositivo.
 </div>
-<script>
-let clientes=[
+
+   <script>
+    <script>
+
+let clientes = JSON.parse(localStorage.getItem("agrocontrol_clientes")) || [
  {nombre:"Juan Pérez",codigo:"JP-001",ha:420},
  {nombre:"Cliente 2",codigo:"AC-002",ha:275},
  {nombre:"Cliente 3",codigo:"AC-003",ha:510}
 ];
-function estado(c){return c.ha>=500?"10% disponible":"En progreso"}
+
+function guardarClientes(){
+ localStorage.setItem(
+   "agrocontrol_clientes",
+   JSON.stringify(clientes)
+ );
+}
+
+function estado(c){
+ return c.ha>=500 ? "10% disponible" : "En progreso";
+}
+
 function render(){
- const t=document.getElementById('tabla'),s=document.getElementById('sel');t.innerHTML='';s.innerHTML='';
+
+ const t=document.getElementById('tabla');
+ const s=document.getElementById('sel');
+
+ t.innerHTML='';
+ s.innerHTML='';
+
  clientes.forEach((c,i)=>{
-  s.innerHTML+=`<option value="${i}">${c.nombre} — ${c.codigo}</option>`;
+
+  s.innerHTML+=`
+  <option value="${i}">
+  ${c.nombre} — ${c.codigo}
+  </option>`;
+
   let pct=Math.min(100,c.ha/5);
-  t.innerHTML+=`<tr><td>${c.nombre}</td><td>${c.codigo}</td><td>${c.ha.toFixed(1)} ha</td><td>${pct.toFixed(0)}%</td><td class="${c.ha>=500?'good':'warn'}">${estado(c)}</td></tr>`;
+
+  t.innerHTML+=`
+  <tr>
+    <td>${c.nombre}</td>
+    <td>${c.codigo}</td>
+    <td>${c.ha.toFixed(1)} ha</td>
+    <td>${pct.toFixed(0)}%</td>
+    <td class="${c.ha>=500?'good':'warn'}">
+      ${estado(c)}
+    </td>
+  </tr>`;
  });
+
 }
-function show(x){document.getElementById('cliente').classList.toggle('hidden',x!=='cliente');document.getElementById('admin').classList.toggle('hidden',x!=='admin');if(x==='admin')render();}
+
+function show(x){
+
+ document.getElementById('cliente')
+ .classList.toggle('hidden',x!=='cliente');
+
+ document.getElementById('admin')
+ .classList.toggle('hidden',x!=='admin');
+
+ if(x==='admin'){
+  render();
+ }
+
+}
+
 function buscarCliente(){
- let code=document.getElementById('codigo').value.trim().toUpperCase(),c=clientes.find(x=>x.codigo===code);
- let p=document.getElementById('clientePanel'),m=document.getElementById('loginMsg');
- if(!c){p.classList.add('hidden');m.textContent='Código no encontrado. En la demo podés probar JP-001, AC-002 o AC-003.';return}
- p.classList.remove('hidden');m.textContent='Acceso correcto.';
- document.getElementById('cNombre').textContent=c.nombre;
- document.getElementById('cHa').textContent=c.ha.toFixed(1)+' ha';
- document.getElementById('cFaltan').textContent=Math.max(0,500-c.ha).toFixed(1)+' ha';
- document.getElementById('cBar').style.width=Math.min(100,c.ha/5)+'%';
- document.getElementById('cBeneficio').innerHTML=c.ha>=500?'<b>🎉 Beneficio desbloqueado:</b> tenés 10% de descuento para tu próximo servicio.':'Te faltan <b>'+Math.max(0,500-c.ha).toFixed(1)+' ha</b> para desbloquear el 10% de descuento en tu próximo servicio.';
+
+ let code=document
+ .getElementById('codigo')
+ .value
+ .trim()
+ .toUpperCase();
+
+ let c=clientes.find(x=>x.codigo===code);
+
+ let p=document.getElementById('clientePanel');
+ let m=document.getElementById('loginMsg');
+
+ if(!c){
+
+  p.classList.add('hidden');
+
+  m.textContent=
+  'Código no encontrado.';
+
+  return;
+ }
+
+ p.classList.remove('hidden');
+
+ m.textContent='Acceso correcto.';
+
+ document.getElementById('cNombre')
+ .textContent=c.nombre;
+
+ document.getElementById('cHa')
+ .textContent=c.ha.toFixed(1)+' ha';
+
+ document.getElementById('cFaltan')
+ .textContent=
+ Math.max(0,500-c.ha).toFixed(1)+' ha';
+
+ document.getElementById('cBar')
+ .style.width=
+ Math.min(100,c.ha/5)+'%';
+
+ document.getElementById('cBeneficio')
+ .innerHTML=
+ c.ha>=500
+ ?
+ '<b>🎉 Beneficio desbloqueado:</b> tenés 10% de descuento para tu próximo servicio.'
+ :
+ 'Te faltan <b>'+
+ Math.max(0,500-c.ha).toFixed(1)+
+ ' ha</b> para desbloquear el 10% de descuento en tu próximo servicio.';
+
  p.scrollIntoView({behavior:'smooth'});
+
 }
+
+function agregarCliente(){
+
+ let nombre=document
+ .getElementById('nuevoNombre')
+ .value
+ .trim();
+
+ let codigo=document
+ .getElementById('nuevoCodigo')
+ .value
+ .trim()
+ .toUpperCase();
+
+ let ha=Number(
+ document.getElementById('nuevasHa').value
+ );
+
+ let msg=document
+ .getElementById('nuevoClienteMsg');
+
+ if(!nombre){
+
+  msg.textContent=
+  'Ingresá el nombre del cliente.';
+
+  return;
+ }
+
+ if(!codigo){
+
+  msg.textContent=
+  'Ingresá un código para el cliente.';
+
+  return;
+ }
+
+ if(clientes.some(c=>c.codigo===codigo)){
+
+  msg.textContent=
+  'Ese código ya está utilizado.';
+
+  return;
+ }
+
+ if(isNaN(ha) || ha<0){
+
+  msg.textContent=
+  'Ingresá una cantidad válida de hectáreas.';
+
+  return;
+ }
+
+ clientes.push({
+  nombre:nombre,
+  codigo:codigo,
+  ha:ha
+ });
+
+ guardarClientes();
+
+ render();
+
+ document.getElementById('nuevoNombre').value='';
+ document.getElementById('nuevoCodigo').value='';
+ document.getElementById('nuevasHa').value='';
+
+ msg.textContent=
+ '✅ Cliente cargado correctamente.';
+
+}
+
 function sumarHa(){
- let i=+document.getElementById('sel').value,v=+document.getElementById('sumar').value;
- if(!v||v<=0){document.getElementById('adminMsg').textContent='Ingresá una cantidad válida.';return}
- clientes[i].ha+=v;document.getElementById('sumar').value='';document.getElementById('adminMsg').textContent='Hectáreas cargadas correctamente.';render();
+
+ let i=Number(
+ document.getElementById('sel').value
+ );
+
+ let v=Number(
+ document.getElementById('sumar').value
+ );
+
+ let msg=document
+ .getElementById('adminMsg');
+
+ if(!v || v<=0){
+
+  msg.textContent=
+  'Ingresá una cantidad válida.';
+
+  return;
+ }
+
+ clientes[i].ha+=v;
+
+ guardarClientes();
+
+ document.getElementById('sumar').value='';
+
+ msg.textContent=
+ '✅ Hectáreas cargadas correctamente.';
+
+ render();
+
 }
+
 render();
-</script></body></html>
+
+</script>
+</section>
